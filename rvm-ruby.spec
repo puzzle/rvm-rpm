@@ -4,7 +4,7 @@
 Name: rvm-ruby
 Summary: Ruby Version Manager
 Version: 1.25.18
-Release: 1%{?dist:%{dist}}
+Release: puzzle.1%{?dist}
 License: ASL 2.0
 URL: http://github.com/puzzle/rvm-rpm
 Group: Applications/System
