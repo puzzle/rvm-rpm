@@ -4,7 +4,7 @@
 Name: rvm-ruby
 Summary: Ruby Version Manager
 Version: 1.25.18
-Release: puzzle.1%{?dist}
+Release: puzzle.2%{?dist}
 License: ASL 2.0
 URL: http://github.com/puzzle/rvm-rpm
 Group: Applications/System
@@ -49,8 +49,8 @@ done
 rvm_ignore_rvmrc=1 \
   rvm_user_install_flag=0 \
   rvm_path="%{buildroot}%{rvm_dir}" \
-  rvm_bin_path="%{buildroot}%{rvm_dir}%{_bindir}" \
-  rvm_man_path="%{buildroot}%{rvm_dir}%{_mandir}" \
+  rvm_bin_path="%{buildroot}%{rvm_dir}/bin" \
+  rvm_man_path="%{buildroot}%{rvm_dir}/man" \
   ./install
 
 # So members of the rvm group can write to it
@@ -92,7 +92,7 @@ END_OF_RVMSH
 
 chmod 644 %{buildroot}%{_sysconfdir}/profile.d/rvm.sh
 
-mv %{buildroot}%{rvm_dir}%{_bindir}/rake %{buildroot}%{rvm_dir}%{_bindir}/rvm-rake
+mv %{buildroot}%{rvm_dir}/bin/rake %{buildroot}%{rvm_dir}/bin/rvm-rake
 
 %clean
 rm -rf %{buildroot}
@@ -106,12 +106,15 @@ exit 0
 %config(noreplace) /etc/rvmrc
 %config(noreplace) /etc/profile.d/rvm.sh
 %attr(-,root,%{rvm_group}) %{rvm_dir}
-%{rvm_dir}%{_bindir}/rvm*
-%{rvm_dir}%{_bindir}/bundle
-%{rvm_dir}%{_bindir}/ruby-rvm-env
-%{rvm_dir}%{_mandir}/man1/*
+%{rvm_dir}/bin/*
+%{rvm_dir}/man/*
 
 %changelog
+* Fri Feb 14 2014 Anselm Strauss <strauss@puzzle.ch> - 1.25.18-puzzle.2
+- Fixed bin and man paths
+- Removed redundant lines in files section
+- Updated README
+
 * Thu Feb 13 2014 Anselm Strauss <strauss@puzzle.ch> - 1.25.18
 - Updated to new RVM version
 - Changed download link and version
